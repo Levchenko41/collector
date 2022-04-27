@@ -1,0 +1,12 @@
+#auth-container {
+    place-items: center center;
+}
+
+#sign-in-form {
+    max-width: 330px;
+}
+
+#logo-page-auth {
+    width: 72px;
+    height: 72px;
+}
