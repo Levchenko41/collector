@@ -61,5 +61,11 @@ class UserController {
     const users = await User.findAll();
     return res.json(users);
   }
+  // async deleteUser(req, res) {
+  //   const users = await User.delete();
+  //   return res.json(users);
+  // }
+
+
 }
 module.exports = new UserController();

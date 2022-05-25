@@ -1,15 +1,22 @@
 import React from "react";
 import {useContext} from "react";
 import {Navbar, Nav, Button, Form, Container} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import logo from "../logo.svg";
 import "../style/navBar.css";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../utils/consts";
+import {LOGIN_ROUTE, REGISTRATION_ROUTE} from "../utils/consts";
 
 export const NavBar = observer(() => {
   const {user} = useContext(Context);
+  const navigate = useNavigate();
+  const signOut = () => {
+    user.setUser({});
+    user.setIsAuth(false);
+  localStorage.clear();
+  };
+
   return (
     <>
       <Navbar className="navbar" collapseOnSelect expand="lg" variant="dark">
@@ -20,15 +27,15 @@ export const NavBar = observer(() => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link>
+              <Nav>
                 <Link to="/">Home</Link>
-              </Nav.Link>
-              <Nav.Link>
+              </Nav>
+              <Nav>
                 <Link to="/users">Users</Link>
-              </Nav.Link>
-              <Nav.Link>
-                <Link to="/about">About</Link>
-              </Nav.Link>
+              </Nav>
+              <Nav>
+                <Link to="/mycollection">About</Link>
+              </Nav>
             </Nav>
           </Navbar.Collapse>
           <Form.Group className="me-4">
@@ -38,21 +45,20 @@ export const NavBar = observer(() => {
             <Button
               variant="primary"
               className="me-2"
-              onClick={() => user.setIsAuth(false)}>
+              onClick={() => signOut()}>
               Sing out
             </Button>
           ) : (
             <Nav>
-              <Link to={LOGIN_ROUTE}>
-                <Button variant="primary" className="me-2">
-                  Sign in
-                </Button>
-              </Link>
+              <Button
+                variant="primary"
+                className="me-2"
+                onClick={() => navigate(LOGIN_ROUTE)}>
+                Sign in
+              </Button>
+
               <Link to={REGISTRATION_ROUTE}>
-                <Button
-                  variant="primary"
-                  className="me-2"
-                  onClick={() => user.setIsAuth(true)}>
+                <Button variant="primary" className="me-2">
                   Sign up
                 </Button>
               </Link>

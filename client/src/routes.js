@@ -4,13 +4,15 @@ import {
   MYCOLLECTION_ROUTE,
   LOGIN_ROUTE,
   COLLECTION_ROUTE,
+  USERS_ROUTE
 } from "./utils/consts";
-
+import React from 'react';
 import {MyCollection} from "./pages/MyCollection";
 import {Admin} from "./pages/Admin";
 import {Auth} from "./pages/Auth";
 import {Registration} from "./pages/Registration";
 import {Collection} from "./pages/Collection";
+import { Users } from "./pages/Users";
 
 
 export const authRoutes = [
@@ -20,8 +22,12 @@ export const authRoutes = [
   },
   {
     path: MYCOLLECTION_ROUTE,
-    element: <MyCollection />,
+    element: <MyCollection/>,
   },
+  {
+    path: USERS_ROUTE,
+    element:<Users/>
+  }
 ];
 
 export const publicRoutes = [
