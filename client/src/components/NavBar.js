@@ -6,7 +6,7 @@ import logo from "../logo.svg";
 import "../style/navBar.css";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
-import {LOGIN_ROUTE, REGISTRATION_ROUTE} from "../utils/consts";
+import {LOGIN_ROUTE, REGISTRATION_ROUTE, COLLECTION_ROUTE} from "../utils/consts";
 
 export const NavBar = observer(() => {
   const {user} = useContext(Context);
@@ -15,6 +15,7 @@ export const NavBar = observer(() => {
     user.setUser({});
     user.setIsAuth(false);
   localStorage.clear();
+  navigate(COLLECTION_ROUTE)
   };
 
   return (

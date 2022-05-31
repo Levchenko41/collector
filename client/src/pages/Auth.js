@@ -52,12 +52,19 @@ const signIn=async()=>{
           <Form.Check label="Remember me" />
         </Form.Group>
         <div className="d-grid">
-          <Button type="primary" size="lg" onClick={()=>signIn}>
+          <Button type="primary" size="lg" onClick={(e)=>{
+            e.preventDefault()
+            signIn()}}>
             Sing in
           </Button>
         </div>
         <div>{email}</div>
         <div>{password}</div>
+        <div>Пароль логин для авторизации</div>
+        <div>lev4encko1.vasia@gmail.com</div>
+        <div>Aa1</div>
+
+
       </Form>
     </Container>
   );

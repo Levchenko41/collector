@@ -27,12 +27,14 @@ console.log(localStorage)
 
   useEffect(()=>{
     
-check().then(data=>{
+check()
+.then(data=>{
+  console.log("qqq")
   user.setUser(true)
   user.setIsAuth(true)
   user.setDataUser(jwt_decode(localStorage.token))
 })
-
+.catch(e=>console.log(e.response.data.message))
  },[])
 
  console.log(user)

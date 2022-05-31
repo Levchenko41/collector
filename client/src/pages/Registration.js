@@ -142,6 +142,7 @@ export const Registration = observer(() => {
       user.setDataUser(jwt_decode(localStorage.token))
       console.log("user");
       console.log(user);
+      history(MYCOLLECTION_ROUTE)
     } catch (e) {
     alert(e.response.data.message);
     }
