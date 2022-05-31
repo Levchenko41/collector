@@ -24,9 +24,10 @@ const signIn=async()=>{
   try{
    let data;
   data = await login(email, password);
-  console.log(data)
+  console.log("data",data)
   user.setUser(user)
   user.setIsAuth(true)
+  user.setDataUser(data)
   console.log(user)
   history(MYCOLLECTION_ROUTE)
 }catch(e){
@@ -51,7 +52,7 @@ const signIn=async()=>{
           <Form.Check label="Remember me" />
         </Form.Group>
         <div className="d-grid">
-          <Button type="primary" size="lg" onClick={signIn}>
+          <Button type="primary" size="lg" onClick={()=>signIn}>
             Sing in
           </Button>
         </div>

@@ -8,13 +8,14 @@ import {Context} from "..";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {MYCOLLECTION_ROUTE} from "../utils/consts";
-import { useEffect } from "react";
-import { observer } from "mobx-react-lite";
+import {useEffect} from "react";
+import {observer} from "mobx-react-lite";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 
-export const Registration=observer(()=> {
+export const Registration = observer(() => {
   const history = useNavigate();
-
-
+  
 
   const {user} = useContext(Context);
   const [name, setName] = useState("");
@@ -36,15 +37,15 @@ export const Registration=observer(()=> {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [repeatPasswordError, setRepeatPasswordError] = useState("");
 
-  const [formValid, setFormValid]=useState(false)
+  const [formValid, setFormValid] = useState(false);
 
-  useEffect(()=>{
-if(nameError||emailError||passwordError||repeatPasswordError){
-  setFormValid(false)
-}else{
-  setFormValid(true)
-}
-  },[nameError, emailError, passwordError,repeatPasswordError])
+  useEffect(() => {
+    if (nameError || emailError || passwordError || repeatPasswordError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [nameError, emailError, passwordError, repeatPasswordError]);
 
   const nameHandler = (e) => {
     setName(e.target.value);
@@ -80,20 +81,22 @@ if(nameError||emailError||passwordError||repeatPasswordError){
     setPassword(e.target.value);
     const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
     if (!re.test(String(e.target.value))) {
-      setPasswordError("Invalid password. Password must contain uppercase and lowercase letters, numbers");
+      setPasswordError(
+        "Invalid password. Password must contain uppercase and lowercase letters, numbers"
+      );
     } else {
       setPasswordError("");
     }
   };
 
-  const repeatPasswordHandler=(e)=>{
-    setRepeatPassword(e.target.value)
-    if(e.target.value!==password){
-      setRepeatPasswordError("Passwords do not match")
-    }else{
-      setRepeatPasswordError("")
+  const repeatPasswordHandler = (e) => {
+    setRepeatPassword(e.target.value);
+    if (e.target.value !== password) {
+      setRepeatPasswordError("Passwords do not match");
+    } else {
+      setRepeatPasswordError("");
     }
-  }
+  };
 
   const blurHandler = (e) => {
     switch (e.target.name) {
@@ -101,7 +104,7 @@ if(nameError||emailError||passwordError||repeatPasswordError){
         setNameDirty(true);
         break;
 
-        case "lastName":
+      case "lastName":
         setLastNameDirty(true);
         break;
 
@@ -114,6 +117,21 @@ if(nameError||emailError||passwordError||repeatPasswordError){
     }
   };
 
+  const signUpe = async () => {
+    const response = await axios
+      .post("http://localhost:5000/api/user/registration", {
+        name,
+        lastName,
+        email,
+        password,
+        role: "USER",
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+      });
+  };
+
   const signUp = async () => {
     try {
       let newUser;
@@ -121,11 +139,11 @@ if(nameError||emailError||passwordError||repeatPasswordError){
       console.log(newUser);
       user.setUser(user);
       user.setIsAuth(true);
+      user.setDataUser(jwt_decode(localStorage.token))
       console.log("user");
       console.log(user);
-    
     } catch (e) {
-      alert(e.response.newUser.message);
+    alert(e.response.data.message);
     }
   };
   return (
@@ -212,26 +230,33 @@ if(nameError||emailError||passwordError||repeatPasswordError){
         <Form.Group className="mb-3 " controlId="registration-password">
           <Form.Label>Repeat password</Form.Label>
           <Form.Control
-           type="password"
+            type="password"
             placeholder="Repeat password"
             value={repeatPassword}
             onChange={(e) => {
               setRepeatPassword(e.target.value);
-              repeatPasswordHandler(e)
+              repeatPasswordHandler(e);
             }}
           />
           <div>{password}</div>
           <div>{repeatPassword}</div>
-           {repeatPasswordError && (
+          {repeatPasswordError && (
             <div style={{color: "red"}}>{repeatPasswordError}</div>
           )}
         </Form.Group>
         <div className="d-grid">
-          <Button type="primary" disabled={!formValid} size="lg" onClick={signUp}>
+          <Button
+            type="primary"
+            disabled={!formValid}
+            size="lg"
+            onClick={(e) => {
+              e.preventDefault();
+              signUp();
+            }}>
             Create Account
           </Button>
         </div>
       </Form>
     </Container>
   );
-})
+});

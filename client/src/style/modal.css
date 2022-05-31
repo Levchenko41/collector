@@ -1,0 +1,17 @@
+#modal{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(70 60 70 / 50%);
+    position: fixed;
+    top: 0;
+    left:0;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+#modal-content{
+    padding:20px;
+    background-color: white;
+    border-radius: 12px;
+    max-width: 540px;
+}

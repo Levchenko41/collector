@@ -27,14 +27,14 @@ export const NavBar = observer(() => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav>
+              <Nav className="me-2">
                 <Link to="/">Home</Link>
               </Nav>
-              <Nav>
+              <Nav className="me-2">
                 <Link to="/users">Users</Link>
               </Nav>
-              <Nav>
-                <Link to="/mycollection">About</Link>
+              <Nav className="me-2">
+                <Link to="/mycollection">My collection</Link>
               </Nav>
             </Nav>
           </Navbar.Collapse>

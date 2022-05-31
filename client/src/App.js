@@ -8,28 +8,45 @@ import {observer} from "mobx-react-lite";
 import {Context} from "./index";
 import {useContext, useState, useEffect} from "react";
 import { check } from "./http/userAPI";
-
+import {Container} from "react-bootstrap";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const App = observer(() => {
+
   const {user} = useContext(Context);
+ 
   const [loading, setLoading] = useState(true);
 
 console.log(localStorage)
 
 
 
-console.log(user )
+
+
+
   useEffect(()=>{
+    
 check().then(data=>{
   user.setUser(true)
   user.setIsAuth(true)
+  user.setDataUser(jwt_decode(localStorage.token))
 })
+
  },[])
+
+ console.log(user)
+
+
+
+ 
 
   return (
     <BrowserRouter>
       <NavBar />
+      <Container>
       <AppRouter />
+      </Container>
     </BrowserRouter>
   );
 });
