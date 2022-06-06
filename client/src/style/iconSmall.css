@@ -1,0 +1,20 @@
+.spase-letter-small {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    position: relative;
+    color: white;
+    background-color: aquamarine;
+  }
+  
+  .letter-small {
+      text-transform: uppercase;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    font-size: 50px;
+  
+  }
+  

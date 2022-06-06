@@ -10,7 +10,6 @@ import {useNavigate} from "react-router-dom";
 import {MYCOLLECTION_ROUTE} from "../utils/consts";
 import {useEffect} from "react";
 import {observer} from "mobx-react-lite";
-import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 export const Registration = observer(() => {
@@ -48,7 +47,8 @@ export const Registration = observer(() => {
   }, [nameError, emailError, passwordError, repeatPasswordError]);
 
   const nameHandler = (e) => {
-    setName(e.target.value);
+    setName(e.target.value);  
+    /* eslint-disable */
     const re = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
     if (!re.test(String(e.target.value.toLowerCase()))) {
       setNameError("Invalid name");
@@ -117,31 +117,14 @@ export const Registration = observer(() => {
     }
   };
 
-  const signUpe = async () => {
-    const response = await axios
-      .post("http://localhost:5000/api/user/registration", {
-        name,
-        lastName,
-        email,
-        password,
-        role: "USER",
-      })
-      .then((res) => {
-        console.log(res);
-        console.log(res.data);
-      });
-  };
-
   const signUp = async () => {
     try {
+     
       let newUser;
       newUser = await registration(name, lastName, email, password);
-      console.log(newUser);
       user.setUser(user);
       user.setIsAuth(true);
       user.setDataUser(jwt_decode(localStorage.token))
-      console.log("user");
-      console.log(user);
       history(MYCOLLECTION_ROUTE)
     } catch (e) {
     alert(e.response.data.message);
@@ -155,7 +138,7 @@ export const Registration = observer(() => {
         </div>
         <div className="d-flex justify-content-center mb-4">
           {" "}
-          <h2>Registration</h2>{" "}
+          <h2 className="fs-2">Registration</h2>{" "}
         </div>
 
         <Form.Group className="mb-3 " controlId="registration-firstName">
@@ -213,6 +196,7 @@ export const Registration = observer(() => {
         <Form.Group className="mb-3 " controlId="registration-password">
           <Form.Label>Password</Form.Label>
           <Form.Control
+          className="password"
             name="password"
             onBlur={(e) => blurHandler(e)}
             type="password"
@@ -228,9 +212,10 @@ export const Registration = observer(() => {
           )}
         </Form.Group>
 
-        <Form.Group className="mb-3 " controlId="registration-password">
+        <Form.Group className="mb-3 " controlId="registration-password-repeat">
           <Form.Label>Repeat password</Form.Label>
           <Form.Control
+          className="repeat-password"
             type="password"
             placeholder="Repeat password"
             value={repeatPassword}
@@ -245,11 +230,12 @@ export const Registration = observer(() => {
             <div style={{color: "red"}}>{repeatPasswordError}</div>
           )}
         </Form.Group>
+         </Form>
         <div className="d-grid">
           <Button
             type="primary"
             disabled={!formValid}
-            size="lg"
+            
             onClick={(e) => {
               e.preventDefault();
               signUp();
@@ -257,7 +243,7 @@ export const Registration = observer(() => {
             Create Account
           </Button>
         </div>
-      </Form>
+     
     </Container>
   );
 });

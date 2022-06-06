@@ -36,7 +36,9 @@ router.put("/update/:id", async (req, res) => {
       .json({message: "User with this email already exists"});
     }
     const us = await User.update({name, lastName, role, email}, {where: {id}});
-    return res.json({message: "User updated"});
+    const user = await User.findOne({where: {id}});
+    return res.json(user);
+  
   } else {
     return res.status(404).json({message: "User not found"});
   }

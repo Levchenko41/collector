@@ -1,7 +1,27 @@
 .navbar{
-    background-color: rgb(104, 78, 129);
+    background-color: rgb(67 137 116);
+
 
 }
-img{
+
+.logo{
     width :45px;
+    
 }
+.btn-header {
+    display: block;
+}
+.link-nav{
+    color:white;
+}
+.footer-text{
+    color:white;
+}
+@media (max-width:480px) {
+    .container{
+        display: block;
+        
+    
+    }
+
+  }

@@ -3,8 +3,16 @@ body {
   display:grid;
   background: #628ac2;
   min-height: 100vh;
-}
 
+}
+#root{
+display:flex;
+flex-direction: column;
+background-color: #effff0;
+}
+.container{
+  flex:1 1 auto;
+}
 
 a {text-decoration: none; color: white}
 a:hover {text-decoration: none; color: #9cbbeb}

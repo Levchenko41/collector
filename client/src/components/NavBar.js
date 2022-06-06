@@ -1,6 +1,6 @@
 import React from "react";
 import {useContext} from "react";
-import {Navbar, Nav, Button, Form, Container} from "react-bootstrap";
+import {Navbar, Nav, Button, Container} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
 import logo from "../logo.svg";
 import "../style/navBar.css";
@@ -20,28 +20,25 @@ export const NavBar = observer(() => {
 
   return (
     <>
-      <Navbar className="navbar" collapseOnSelect expand="lg" variant="dark">
+      <Navbar className="navbar"  variant="dark">
         <Container>
           <Navbar.Brand>
-            <img style={{width: 45}} src={logo} alt="logo" />
+            <img className="logo" src={logo} alt="logo" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
+         
             <Nav className="me-auto">
-              <Nav className="me-2">
-                <Link to="/">Home</Link>
+              <Nav className="me-2 fs-4" >
+                <Link className="link-nav" to="/">Home</Link>
               </Nav>
-              <Nav className="me-2">
-                <Link to="/users">Users</Link>
+              <Nav className="me-2 fs-4">
+                <Link className="link-nav" to="/users">Users</Link>
               </Nav>
-              <Nav className="me-2">
-                <Link to="/mycollection">My collection</Link>
+              <Nav className="me-2 fs-4 ">
+                <Link className="link-nav" to="/mycollection">My collection</Link>
               </Nav>
             </Nav>
-          </Navbar.Collapse>
-          <Form.Group className="me-4">
-            <Form.Control type="text" className="me-2" placeholder="Search" />
-          </Form.Group>
+          
           {user.isAuth ? (
             <Button
               variant="primary"
@@ -50,7 +47,7 @@ export const NavBar = observer(() => {
               Sing out
             </Button>
           ) : (
-            <Nav>
+            <Nav className="btn-header">
               <Button
                 variant="primary"
                 className="me-2"

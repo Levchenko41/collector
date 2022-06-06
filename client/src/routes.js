@@ -1,6 +1,5 @@
 import {
   ADMIN_ROUTE,
-  REGISTRATION_ROUTE,
   MYCOLLECTION_ROUTE,
   LOGIN_ROUTE,
   COLLECTION_ROUTE,
@@ -13,6 +12,9 @@ import {Auth} from "./pages/Auth";
 import {Registration} from "./pages/Registration";
 import {Collection} from "./pages/Collection";
 import { Users } from "./pages/Users";
+import { Cusers } from "./pages/Cusers";
+import { AboutProject } from "./pages/AboutProject";
+import {UserPage} from "./pages/UserPage";
 
 
 export const authRoutes = [
@@ -21,12 +23,28 @@ export const authRoutes = [
     element: <Admin/>,
   },
   {
+    path: '/aboutProject',
+    element: <AboutProject/>,
+  },
+  {
     path: MYCOLLECTION_ROUTE,
     element: <MyCollection/>,
   },
   {
     path: USERS_ROUTE,
     element:<Users/>
+  },
+  {
+    path: COLLECTION_ROUTE,
+    element: <Collection/>,
+  },
+  {
+    path: '/user/:id',
+    element: <UserPage/>,
+  },
+  {
+    path:'/allusers',
+    element: <Cusers/>
   }
 ];
 
@@ -36,11 +54,19 @@ export const publicRoutes = [
     element: <Auth/>,
   },
   {
-    path: REGISTRATION_ROUTE,
+    path: '/registration',
     element: <Registration/>,
   },
   {
     path: COLLECTION_ROUTE,
     element: <Collection/>,
+  },
+  {
+    path: '/aboutProject',
+    element: <AboutProject/>,
+  },
+  {
+    path: '/user/:id',
+    element: <UserPage/>,
   },
 ];

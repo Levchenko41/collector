@@ -1,25 +1,30 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
+import {Context} from "..";
 import "../style/modal.css";
 import {Form, Button} from "react-bootstrap";
 import axios from "axios";
 
-const Modal = ({setActive, userId}) => {
+const Modal = ({setActive, userData}) => {
+  const {user} = useContext(Context);
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
-  const [post, setPost] = useState("");
+  const [role, setRole] = useState(userData.role);
+
 
   const changeUser = async (index, name, lastName, email, role) => {
-    const response = await axios
+   await axios
       .put(`http://localhost:5000/api/user/update/${index}`, {
         name,
         lastName,
         role,
         email,
       })
-      .then((response) => setPost(response.data))
-      .catch((err) => setPost(err.response.data));
+      .then((response) => {
+     
+        user.setDataUser(response.data);
+      })
+      .catch((err) => alert(err.response.data));
   };
   return (
     <div className="" id="modal" onClick={() => setActive(false)}>
@@ -54,7 +59,10 @@ const Modal = ({setActive, userId}) => {
 
           <Form.Group className="mb-3">
             <Form.Label>Role</Form.Label>
-            <Form.Select onChange={(e) => setRole(e.target.value)}>
+            <Form.Select
+              onChange={(e) => {
+                setRole(e.target.value);
+              }}>
               <option>USER</option>
               <option>ADMIN</option>
             </Form.Select>
@@ -63,7 +71,7 @@ const Modal = ({setActive, userId}) => {
             type="primary"
             size="lg"
             onClick={() => {
-              changeUser(userId, name, lastName, email, role);
+              changeUser(user.dataUser.id, name, lastName, email, role);
 
               setActive(false);
             }}>

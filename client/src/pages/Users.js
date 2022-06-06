@@ -1,25 +1,20 @@
 import React from "react";
 import axios from "axios";
 import {useState} from "react";
-import {Table, Container, Button} from "react-bootstrap";
+import {Container, Button} from "react-bootstrap";
 import {useEffect} from "react";
-
 import Modal from "../components/Modal";
-
 
 export const Users = () => {
   const [users, setUsers] = useState("");
+  const [user, setUser] = useState("");
 
-  const [id, setId] = useState(0);
   const [modalActive, setModalActive] = useState(false);
   const apiUrl = "http://localhost:5000/api/user/authAll";
-  
-
 
   async function fetchUsers() {
     const response = await axios.get(apiUrl);
     setUsers(response.data);
-    console.log("ddfd");
   }
 
   useEffect(() => {
@@ -35,56 +30,49 @@ export const Users = () => {
       alert(response.data.message);
     }
   };
-
-  console.log(modalActive);
   return (
-    <Container>
-      <h2 className="mb-3 mt-4 text-center">List of all users</h2>
+    <Container className="d-block">
+      <h2 className="mb-3 fs-2 mt-4 text-center">List of all users</h2>
       {users ? (
-        <Table striped bordered hover variant="dark">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Created user</th>
-              <th>Updated user</th>
-              <th>Delete user</th>
-              <th>Change</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => {
-              return (
-                <tr key={index}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.lastName}</td>
-                  <td>{user.email}</td>
-                  <td>{user.role}</td>
-                  <td>{user.createdAt}</td>
-                  <td>{user.updatedAt}</td>
-                  <td>
-                    {" "}
-                    <Button onClick={() => deleteUser(user.id)}>Delete</Button>
-                  </td>
-                  <td>
-                    {" "}
-                    <Button
-                      onClick={() => {
-                        setModalActive(true);
-                        setId(user.id);
-                      }}>
-                      Сhange
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
+        <div>
+          <div>
+            <div className="user-con">
+              {users.map((user, index) => {
+                return (
+                  <div key={index} className="user-one mb-3">
+                    <div className="fs-3">id: {user.id}</div>
+                    <div className="fs-3">Name: {user.name}</div>
+                    <div className="fs-3">Last: Name: {user.lastName}</div>
+                    <div className="fs-3">Email: {user.email}</div>
+                    <div className="fs-3">Role: {user.role}</div>
+                    <div className="fs-3">Created user: {user.createdAt}</div>
+                    <div className="fs-3">Updated user: {user.updatedAt}</div>
+                    <div>
+                      {" "}
+                      <Button
+                        className="mb-3"
+                        onClick={() => deleteUser(user.id)}>
+                        Delete
+                      </Button>
+                    </div>
+                    <div>
+                      {" "}
+                      <Button
+                        onClick={() => {
+                          setModalActive(true);
+                          setUser(user);
+                         
+                        }}>
+                        Сhange
+                      </Button>
+                      <hr />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       ) : null}
 
       <Button
@@ -94,7 +82,7 @@ export const Users = () => {
         Update table
       </Button>
 
-      {modalActive && <Modal setActive={setModalActive} userId={id} />}
+      {modalActive && <Modal setActive={setModalActive} userData={user} />}
     </Container>
   );
 };

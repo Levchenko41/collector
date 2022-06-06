@@ -1,0 +1,120 @@
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    text-decoration: none;
+   list-style: none;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: inherit;
+    font-weight: 400;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+   text-decoration: none;
+   list-style: none;
+  }
+  .link{
+      color:black;
+  }
+  .container-cv {
+     
+    color: black;
+       
+       font-family: 'Catamaran', sans-serif;
+    margin: auto;
+    padding: 20px 30px;
+    max-width: 760px;
+    background: #d1caca;
+    display: grid;
+    grid-template-columns: 30% 70%;
+  
+  }
+  
+  
+  
+  .section {
+    margin: 20px, 10px;
+  }
+  
+  .foto {
+    padding: 5px;
+    text-align: center
+  }
+  
+  .img-foto {
+  
+    border-radius: 50%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  h3 {
+    font-size: 25px;
+  }
+  
+  .myName {
+    font-size: 45px;
+  }
+  
+  .center {
+    border-left: 1px solid rgb(126, 123, 123);
+    padding-left: 30px;
+    margin-left: 30px;
+  }
+  
+  .hr-line {
+    margin: 0;
+    max-width: 150px;
+    border: none;
+    border-top: 1px solid #333;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+  }
+  
+  h3 {
+    margin-top: 20px;
+  }
+  
+  .namePosition {
+    font-size: 30px;
+  }
+  
+  @media (max-width:570px) {
+    .container-cv {
+      display: block;
+    }
+  
+    .foto::before {
+      content: "VASILI LEVCHENKO";
+      font-size: 35px;
+    }
+  
+    .left{
+      margin-left: 30px;
+    }
+  
+    .center {
+      border-left: none;
+      padding-left: 0px;
+      margin-left: 30px;
+      margin-top: 15px;
+    }
+  }
+  
+  @media (max-width:480px) {
+  
+    .left {
+      margin-left: 0px;
+    }
+  
+    .center {
+      margin-left: 0px;
+    }
+  }
